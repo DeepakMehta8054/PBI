@@ -1,6 +1,4 @@
-if (localStorage.getItem("loggedIn") !== "true") {
-    window.location.href = "login.html";
-}
+
 
 let cdrCount = Number(localStorage.getItem("cdrCount")) || 0;
 let ipCount = Number(localStorage.getItem("ipCount")) || 0;

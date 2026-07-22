@@ -43,7 +43,7 @@ map.eachLayer(function(layer){
 
             try {
 
-                let response = await fetch("http://ip-api.com/json/" + ip);
+                let response = await fetch("https://ip-api.com/json/" + ip);
                 let data = await response.json();
 
                 return data;

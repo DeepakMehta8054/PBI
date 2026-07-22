@@ -1,4 +1,4 @@
-const token = 7eafef8a28ce8d;
+const token = "7eafef8a28ce8d";
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

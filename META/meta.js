@@ -1,6 +1,4 @@
-if (localStorage.getItem("loggedIn") !== "true") {
-    window.location.href = "login.html";
-}
+
 
 pdfjsLib.GlobalWorkerOptions.workerSrc =
 "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";

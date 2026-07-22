@@ -1,4 +1,4 @@
-
+const token = 7eafef8a28ce8d;
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -28,7 +28,7 @@ map.eachLayer(function(layer){
 
 
     const batchSize = 10;
-    const delayBetweenBatches = 15000; // 15 seconds
+    const delayBetweenBatches = 10000; // 10 seconds
 
     let results = [];
 
@@ -43,11 +43,24 @@ map.eachLayer(function(layer){
 
             try {
 
-                let response = await fetch("https://ip-api.com/json/" + ip);
-                let data = await response.json();
+               let response = await fetch(`https://ipinfo.io/${ip}/json?token=${token}`);
+let data = await response.json();
 
-                return data;
+let lat = "-";
+let lon = "-";
 
+if (data.loc) {
+    [lat, lon] = data.loc.split(",");
+}
+
+return {
+    query: data.ip,
+    country: data.country,
+    city: data.city,
+    isp: data.org,
+    lat: lat,
+    lon: lon
+};
             } catch (e) {
 
                 return {

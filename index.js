@@ -1,17 +1,4 @@
 
-
-function logout(){
-
-    if(confirm("Are you sure you want to logout?")){
-
-        localStorage.removeItem("loggedIn");
-        localStorage.removeItem("userName");
-        localStorage.removeItem("role");
-
-        window.location.href = "login.html";
-    }
-
-}
 function updateDateTime(){
 
     const now = new Date();

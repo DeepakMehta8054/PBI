@@ -1,6 +1,4 @@
-if (localStorage.getItem("loggedIn") !== "true") {
-    window.location.href = "login.html";
-}
+
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

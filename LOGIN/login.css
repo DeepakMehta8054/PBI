@@ -1,0 +1,79 @@
+body{
+    background-image:url("mysterious-investigation.jpg");
+    background-size: cover;
+}
+#header{
+text-align: center;
+color:rgb(242,213,146);
+height: 40px;
+}
+
+/* datetime */
+.dateTime{
+    color:white;
+    text-align:left;
+    padding:10px 20px;
+    width: 350px;
+}
+
+.date,
+.time{
+    margin:6px 0;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.date i,
+.time i{
+    color:orange;
+    margin-right:10px;
+    font-size:20px;
+}
+
+.time{
+    color:#FFD700;
+}
+header{display: flex;}
+footer{
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: black;
+    color:white;
+    text-align: center;
+    padding: 15px;
+}
+
+/*  loginbox  */
+.loginBox{
+    margin-left: 500px;
+}
+
+.loginBox i{
+    width: 30px;
+    text-align:center;
+    font-size: 22px;
+    color: white;
+    position: relative;
+    }
+
+   
+ input{
+    font-size: 25px;
+    font-size: bold;
+}
+button{
+    padding: 10px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    margin-left: 125px;
+    position: absolute;
+}
+
+
+
+

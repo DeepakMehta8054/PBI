@@ -53,6 +53,7 @@ table,th,td{
 #map{
     width:500px;
     height:500px;
+    display:flex;
     justify-content: center;
     align-items: center;
     margin-top:20px;

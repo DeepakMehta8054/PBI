@@ -1,0 +1,102 @@
+
+
+body{
+    font-family: Arial, sans-serif;
+    background:rgb(242,213,146);
+    margin:20px;
+}
+
+h2{
+    text-align:center;
+    color:#1f3c88;
+}
+
+input[type=file]{
+    margin:15px 0;
+    padding:8px;
+}
+
+#fileColumns{
+    background:#fff;
+    padding:15px;
+    border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+    margin-bottom:20px;
+}
+
+select{
+    width:250px;
+    padding:8px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    margin-bottom:10px;
+}
+
+button{
+    background:#1f3c88;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:15px;
+    margin-top:10px;
+}
+
+button:hover{
+    background:#16306b;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+    background:white;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+th{
+    background:#1f3c88;
+    color:white;
+    padding:10px;
+    position:sticky;
+    top:0;
+}
+
+td{
+    padding:8px;
+    border:1px solid #ddd;
+    text-align:center;
+}
+
+tr:nth-child(even){
+    background:#f8f9fa;
+}
+
+tr:hover{
+    background:#e8f0ff;
+}
+
+#recordDetails{
+    margin-top:30px;
+}
+
+h3{
+    color:#1f3c88;
+}
+
+h4{
+    background:#eef3ff;
+    padding:10px;
+    border-left:5px solid #1f3c88;
+}
+
+a{
+    color:#0066cc;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+a:hover{
+    text-decoration:underline;
+}

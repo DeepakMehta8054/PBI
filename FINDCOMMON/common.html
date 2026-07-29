@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIND DATA FINDER</title>
+    <link rel="stylesheet" href="find.css">
+</head>
+<body>
+
+<h2>Common Data Finder</h2>
+
+<input type="file" id="excelFiles" accept=".xlsx,.xls" multiple>
+
+<div id="fileColumns"></div>
+
+<button onclick="findCommon()">Cross File Analysis</button>
+
+<div id="output"></div>
+
+<hr>
+
+<div id="recordDetails"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+<script src="common.js"></script>
+
+</body></html>

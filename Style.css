@@ -10,18 +10,22 @@
 text-align: center;
 color:rgb(242,213,146);
 height: 40px;
+margin-top:30px;
 }
 .footer{
-
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     background-color: black;
-    color:white;
-    text-align: center;
-    padding: 15px;
+    color: white;
+    padding: 15px 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 nav a{
 text-decoration: none;
 color:white;
@@ -59,31 +63,38 @@ nav {
     color:rgb(242,213,146);
 
 }
-/*.welcome-box button{
-    margin-top:20px;
-    padding:10px 25px;
-    background:#00bfff;
-    color:white;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-}
-.welcome-box{text-align: center;
-color: white;}
+.fa-magnifying-glass
+{
+    color:rgb(242,213,146);
 
-contact us*/
+}
+
+#contactus a{
+    text-decoration: none;
+    color: white;
+
+}
+
+
 #contactus{
-    position: relative;
+    position: absolute;
+    right: 60px;
     display: inline-block;
+    color: maroon;
 
 }
-.contactdropdown {display: none;
-position:absolute;
-background-color: rgb(242,213,146);
-min-width: 250px;
-border-radius: 8px;
-padding: 10px;}
+.contactdropdown{
+    display: none;
+    position: absolute;
+    background-color: rgb(242,213,146);
+    min-width: 250px;
+    border-radius: 8px;
+    padding: 10px;
 
+    bottom: 100%;
+    right: 0;
+    margin-bottom: 8px;
+}
 #contactus:hover .contactdropdown {
     
     display: block;
@@ -119,8 +130,4 @@ header{display: flex;}
 .logoutit{
     margin-left: 300px;
 }
-
-
-
-
 

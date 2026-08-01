@@ -1,4 +1,4 @@
-
+let directionArrows = null;
 // Map Initialize
 let map = L.map("map").setView([30.9000, 75.8573], 10);
 
@@ -170,7 +170,9 @@ function drawMovement(locations) {
     if (movementLine) {
         map.removeLayer(movementLine);
     }
-
+if (directionArrows) {
+    map.removeLayer(directionArrows);
+}
     // Date + Time ke hisaab se sort
     locations.sort((a, b) => {
 
@@ -234,7 +236,23 @@ let marker = L.marker([loc.lat, loc.lng], {
         color: "blue",
         weight: 4
     }).addTo(map);
-
+directionArrows = L.polylineDecorator(movementLine, {
+    patterns: [
+        {
+            offset: 25,
+            repeat: 100,
+            symbol: L.Symbol.arrowHead({
+                pixelSize: 12,
+                polygon: true,
+                pathOptions: {
+                    color: "blue",
+                    fillOpacity: 1,
+                    weight: 2
+                }
+            })
+        }
+    ]
+}).addTo(map);
     if (latlngs.length > 0) {
         map.fitBounds(movementLine.getBounds());
     }

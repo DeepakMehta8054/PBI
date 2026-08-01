@@ -10,9 +10,33 @@ html<!DOCTYPE html>
 
 </head>
 <body>
+<input type="file" id="excelFile" accept=".xlsx,.xls">
 
-    <h3>Suspect Movement Map</h3>
-    <div id="map"></div>
+<br><br>
+
+<label>Latitude Column:</label>
+<select id="latColumn"></select>
+
+<label>Longitude Column:</label>
+<select id="lngColumn"></select>
+
+<label>Date Column:</label>
+<select id="dateColumn"></select>
+
+<label>Time Column:</label>
+<select id="timeColumn"></select>
+
+<label>Tower ID:</label>
+<select id="towerColumn"></select>
+
+<br><br>
+
+<button id="generateMap">Generate Map</button>
+
+<hr>
+
+<h3>Suspect Movement Map</h3>
+<div id="map"></div>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="Map.js"></script>

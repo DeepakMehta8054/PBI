@@ -181,8 +181,41 @@ function drawMovement(locations) {
     let latlngs = [];
 
     locations.forEach((loc, index) => {
+let bgColor = "#1976d2"; // Blue
 
-        let marker = L.marker([loc.lat, loc.lng]).addTo(map);
+if (index === 0) {
+    bgColor = "#28a745"; // Start - Green
+}
+
+if (index === locations.length - 1) {
+    bgColor = "#dc3545"; // End - Red
+}
+
+let icon = L.divIcon({
+    className: "number-marker",
+    html: `
+        <div style="
+            background:${bgColor};
+            width:30px;
+            height:30px;
+            border-radius:50%;
+            color:white;
+            font-weight:bold;
+            text-align:center;
+            line-height:30px;
+            border:2px solid white;
+            box-shadow:0 2px 5px rgba(0,0,0,.4);
+        ">
+            ${index + 1}
+        </div>
+    `,
+    iconSize: [30, 30],
+    iconAnchor: [15, 15]
+});
+
+let marker = L.marker([loc.lat, loc.lng], {
+    icon: icon
+}).addTo(map);;
 
         marker.bindPopup(`
             <b>Sequence:</b> ${index + 1}<br>

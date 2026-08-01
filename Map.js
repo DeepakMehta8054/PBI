@@ -70,6 +70,34 @@ function parseDateTime(dateValue, timeValue) {
     return date;
 
 }
+function parseLocation(value) {
+
+    if (!value) return null;
+
+    value = String(value).trim();
+
+    // Google Maps URL
+    let match = value.match(/q=([-0-9.]+),([-0-9.]+)/);
+
+    if (match) {
+        return {
+            lat: parseFloat(match[1]),
+            lng: parseFloat(match[2])
+        };
+    }
+
+    // Space / comma separated
+    let parts = value.split(/[\s,]+/);
+
+    if (parts.length >= 2) {
+        return {
+            lat: parseFloat(parts[0]),
+            lng: parseFloat(parts[1])
+        };
+    }
+
+    return null;
+}
 
 fileInput.addEventListener("change", function (e) {
 
@@ -97,12 +125,11 @@ fileInput.addEventListener("change", function (e) {
 function fillDropdowns(headers) {
 
     const selects = [
-        "latColumn",
-        "lngColumn",
-        "dateColumn",
-        "timeColumn",
-        "towerColumn"
-    ];
+    "locationColumn",
+    "dateColumn",
+    "timeColumn",
+    "towerColumn"
+];
 
     selects.forEach(id => {
 
@@ -129,8 +156,7 @@ let movementLine = null;
 
 document.getElementById("generateMap").addEventListener("click", function () {
 
-    let latCol = document.getElementById("latColumn").value;
-    let lngCol = document.getElementById("lngColumn").value;
+    let locationCol = document.getElementById("locationColumn").value;
     let dateCol = document.getElementById("dateColumn").value;
     let timeCol = document.getElementById("timeColumn").value;
     let towerCol = document.getElementById("towerColumn").value;
@@ -139,8 +165,12 @@ document.getElementById("generateMap").addEventListener("click", function () {
 
     excelData.forEach(row => {
 
-        let lat = parseFloat(row[latCol]);
-        let lng = parseFloat(row[lngCol]);
+        let location = parseLocation(row[locationCol]);
+
+if (!location) return;
+
+let lat = location.lat;
+let lng = location.lng;
 
         if (isNaN(lat) || isNaN(lng)) return;
 if (lat < -90 || lat > 90) return;

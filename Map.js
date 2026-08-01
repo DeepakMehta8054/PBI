@@ -8,6 +8,68 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
 let excelData = [];
 const fileInput = document.getElementById("excelFile");
+// Universal Date Parser
+function parseDate(dateValue) {
+
+    if (!dateValue) return null;
+
+    // Excel Serial Date
+    if (!isNaN(dateValue)) {
+        return new Date((dateValue - 25569) * 86400 * 1000);
+    }
+
+    let str = String(dateValue).trim();
+
+    // Replace / with -
+    str = str.replace(/\//g, "-");
+
+    let parts = str.split("-");
+
+    if (parts.length !== 3) return null;
+
+    let day, month, year;
+
+    // YYYY-MM-DD
+    if (parts[0].length === 4) {
+        year = parseInt(parts[0]);
+        month = parseInt(parts[1]) - 1;
+        day = parseInt(parts[2]);
+    }
+
+    // DD-MM-YYYY
+    else {
+        day = parseInt(parts[0]);
+        month = parseInt(parts[1]) - 1;
+        year = parseInt(parts[2]);
+    }
+
+    return new Date(year, month, day);
+
+}
+
+
+// Universal DateTime Parser
+function parseDateTime(dateValue, timeValue) {
+
+    let date = parseDate(dateValue);
+
+    if (!date) return null;
+
+    if (timeValue) {
+
+        let time = String(timeValue).trim();
+
+        let t = time.split(":");
+
+        date.setHours(parseInt(t[0]) || 0);
+        date.setMinutes(parseInt(t[1]) || 0);
+        date.setSeconds(parseInt(t[2]) || 0);
+
+    }
+
+    return date;
+
+}
 
 fileInput.addEventListener("change", function (e) {
 
@@ -81,7 +143,11 @@ document.getElementById("generateMap").addEventListener("click", function () {
         let lng = parseFloat(row[lngCol]);
 
         if (isNaN(lat) || isNaN(lng)) return;
+if (lat < -90 || lat > 90) return;
 
+if (lng < -180 || lng > 180) return;
+
+if (!parseDateTime(row[dateCol], row[timeCol])) return;
         locations.push({
             lat: lat,
             lng: lng,
@@ -107,8 +173,10 @@ function drawMovement(locations) {
 
     // Date + Time ke hisaab se sort
     locations.sort((a, b) => {
-        return new Date(`${a.date} ${a.time}`) - new Date(`${b.date} ${b.time}`);
-    });
+
+    return parseDateTime(a.date, a.time) - parseDateTime(b.date, b.time);
+
+});
 
     let latlngs = [];
 

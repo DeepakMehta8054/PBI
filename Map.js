@@ -107,7 +107,7 @@ function passesFilter(recordDate, recordTime, fromDate, toDate, fromTime, toTime
 
     if (toDate) {
 
-        let endDate = new Date(toDate);
+        let endDate = new Date(toDate.getTime());;
         endDate.setHours(23,59,59,999);
 
         if (recordDate > endDate) return false;

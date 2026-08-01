@@ -98,7 +98,33 @@ function parseLocation(value) {
 
     return null;
 }
+function passesFilter(recordDate, recordTime, fromDate, toDate, fromTime, toTime) {
 
+    if (!recordDate) return false;
+
+    // Date Filter
+    if (fromDate && recordDate < fromDate) return false;
+
+    if (toDate) {
+
+        let endDate = new Date(toDate);
+        endDate.setHours(23,59,59,999);
+
+        if (recordDate > endDate) return false;
+    }
+
+    // Time Filter
+    if (fromTime || toTime) {
+
+        let time = recordTime ? String(recordTime).substring(0,5) : "";
+
+        if (fromTime && time < fromTime) return false;
+
+        if (toTime && time > toTime) return false;
+    }
+
+    return true;
+}
 fileInput.addEventListener("change", function (e) {
 
     const file = e.target.files[0];
@@ -160,7 +186,14 @@ document.getElementById("generateMap").addEventListener("click", function () {
     let dateCol = document.getElementById("dateColumn").value;
     let timeCol = document.getElementById("timeColumn").value;
     let towerCol = document.getElementById("towerColumn").value;
+let fromDate = document.getElementById("fromDate").value;
+let toDate = document.getElementById("toDate").value;
+let fromTime = document.getElementById("fromTime").value;
+let toTime = document.getElementById("toTime").value;
 
+// Parse once
+let fromDateObj = fromDate ? new Date(fromDate) : null;
+let toDateObj = toDate ? new Date(toDate) : null;
     let locations = [];
 
     excelData.forEach(row => {

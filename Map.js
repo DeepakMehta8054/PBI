@@ -205,19 +205,30 @@ if (!location) return;
 let lat = location.lat;
 let lng = location.lng;
 
-        if (isNaN(lat) || isNaN(lng)) return;
 if (lat < -90 || lat > 90) return;
 
 if (lng < -180 || lng > 180) return;
 
-if (!parseDateTime(row[dateCol], row[timeCol])) return;
-        locations.push({
-            lat: lat,
-            lng: lng,
-            date: row[dateCol] || "",
-            time: row[timeCol] || "",
-            tower: row[towerCol] || ""
-        });
+let recordDateTime = parseDateTime(row[dateCol], row[timeCol]);
+
+if (!recordDateTime) return;
+
+if (!passesFilter(
+    recordDateTime,
+    row[timeCol],
+    fromDateObj,
+    toDateObj,
+    fromTime,
+    toTime
+)) return;
+
+locations.push({
+    lat: lat,
+    lng: lng,
+    date: row[dateCol] || "",
+    time: row[timeCol] || "",
+    tower: row[towerCol] || ""
+});
 
     });
 

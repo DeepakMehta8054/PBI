@@ -11,43 +11,62 @@ const fileInput = document.getElementById("excelFile");
 // Universal Date Parser
 function parseDate(dateValue) {
 
-    if (!dateValue) return null;
+    if (dateValue === null || dateValue === undefined || dateValue === "")
+        return null;
+
+    // JavaScript Date object
+    if (dateValue instanceof Date)
+        return new Date(dateValue);
 
     // Excel Serial Date
-    if (!isNaN(dateValue)) {
-        return new Date((dateValue - 25569) * 86400 * 1000);
+    if (typeof dateValue === "number") {
+        let utc = new Date(Math.round((dateValue - 25569) * 86400 * 1000));
+        return new Date(
+            utc.getUTCFullYear(),
+            utc.getUTCMonth(),
+            utc.getUTCDate()
+        );
     }
 
     let str = String(dateValue).trim();
 
-    // Replace / with -
-    str = str.replace(/\//g, "-");
+    // 01-Aug-2026 / 01 August 2026
+    let d = new Date(str);
+    if (!isNaN(d))
+        return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+
+    // Replace / and . with -
+    str = str.replace(/[/.]/g, "-");
 
     let parts = str.split("-");
 
-    if (parts.length !== 3) return null;
+    if (parts.length === 3) {
 
-    let day, month, year;
+        let day, month, year;
 
-    // YYYY-MM-DD
-    if (parts[0].length === 4) {
-        year = parseInt(parts[0]);
-        month = parseInt(parts[1]) - 1;
-        day = parseInt(parts[2]);
+        // YYYY-MM-DD
+        if (parts[0].length === 4) {
+            year = parseInt(parts[0]);
+            month = parseInt(parts[1]) - 1;
+            day = parseInt(parts[2]);
+        }
+
+        // DD-MM-YYYY
+        else {
+            day = parseInt(parts[0]);
+            month = parseInt(parts[1]) - 1;
+            year = parseInt(parts[2]);
+
+            // 2 digit year support
+            if (year < 100)
+                year += 2000;
+        }
+
+        return new Date(year, month, day);
     }
 
-    // DD-MM-YYYY
-    else {
-        day = parseInt(parts[0]);
-        month = parseInt(parts[1]) - 1;
-        year = parseInt(parts[2]);
-    }
-
-    return new Date(year, month, day);
-
+    return null;
 }
-
-
 // Universal DateTime Parser
 function parseDateTime(dateValue, timeValue) {
 
@@ -55,20 +74,47 @@ function parseDateTime(dateValue, timeValue) {
 
     if (!date) return null;
 
-    if (timeValue) {
+    if (timeValue !== null && timeValue !== undefined && timeValue !== "") {
 
-        let time = String(timeValue).trim();
+        // Excel Time Serial
+        if (typeof timeValue === "number") {
 
-        let t = time.split(":");
+            let totalSeconds = Math.round(timeValue * 86400);
 
-        date.setHours(parseInt(t[0]) || 0);
-        date.setMinutes(parseInt(t[1]) || 0);
-        date.setSeconds(parseInt(t[2]) || 0);
+            let h = Math.floor(totalSeconds / 3600);
+            let m = Math.floor((totalSeconds % 3600) / 60);
+            let s = totalSeconds % 60;
 
+            date.setHours(h, m, s, 0);
+        }
+        else {
+
+            let str = String(timeValue).trim();
+
+            // JavaScript parse (supports AM/PM)
+            let temp = new Date("2000-01-01 " + str);
+
+            if (!isNaN(temp)) {
+
+                date.setHours(
+                    temp.getHours(),
+                    temp.getMinutes(),
+                    temp.getSeconds(),
+                    0
+                );
+            }
+            else {
+
+                let t = str.split(":");
+
+                date.setHours(parseInt(t[0]) || 0);
+                date.setMinutes(parseInt(t[1]) || 0);
+                date.setSeconds(parseInt(t[2]) || 0);
+            }
+        }
     }
 
     return date;
-
 }
 function parseLocation(value) {
 

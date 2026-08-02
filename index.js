@@ -24,5 +24,18 @@ function updateDateTime(){
 updateDateTime();
 
 setInterval(updateDateTime,1000);
+const dropBtn = document.querySelector(".dropbtn");
+const dropMenu = document.querySelector(".dropdown-content");
+
+dropBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    dropMenu.classList.toggle("show");
+});
+
+document.addEventListener("click", function(e){
+    if(!e.target.closest(".dropdown")){
+        dropMenu.classList.remove("show");
+    }
+});
 
 

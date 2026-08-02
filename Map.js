@@ -559,6 +559,7 @@ document.getElementById("playBtn").addEventListener("click", function () {
     }, 1000); // 1 second per point
 
 });
+
 document.getElementById("pauseBtn").addEventListener("click", function () {
 
     clearInterval(playbackTimer);

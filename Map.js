@@ -232,13 +232,56 @@ function parseDateTime(dateValue, timeValue) {
     return date;
 
 }
+// ==========================================
+// FILTER
+// ==========================================
 
+function passesFilter(recordDateTime, fromDate, toDate, fromTime, toTime) {
+
+    if (!recordDateTime) return false;
+
+    // From Date
+    if (fromDate) {
+
+        let start = new Date(fromDate);
+        start.setHours(0,0,0,0);
+
+        if (recordDateTime < start)
+            return false;
+    }
+
+    // To Date
+    if (toDate) {
+
+        let end = new Date(toDate);
+        end.setHours(23,59,59,999);
+
+        if (recordDateTime > end)
+            return false;
+    }
+
+    // Time
+    let currentTime =
+        recordDateTime.toTimeString().substring(0,5);
+
+    if (fromTime && currentTime < fromTime)
+        return false;
+
+    if (toTime && currentTime > toTime)
+        return false;
+
+    return true;
+
+}
 
 
 document.getElementById("generateMap").addEventListener("click", generateMap);
 
 function generateMap() {
-    alert("Generate Map Clicked");
+    const fromDate = document.getElementById("fromDate").value;
+const toDate = document.getElementById("toDate").value;
+const fromTime = document.getElementById("fromTime").value;
+const toTime = document.getElementById("toTime").value;
 
     if (excelData.length === 0) {
         alert("Please upload an Excel file.");
@@ -257,6 +300,21 @@ function generateMap() {
         const location = parseLocation(row[locationCol]);
 
         if (!location) return;
+
+        const recordDateTime = parseDateTime(
+    row[dateCol],
+    row[timeCol]
+);
+
+if (!passesFilter(
+    recordDateTime,
+    fromDate,
+    toDate,
+    fromTime,
+    toTime
+)) {
+    return;
+}
 
         locations.push({
             lat: location.lat,

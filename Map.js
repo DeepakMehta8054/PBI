@@ -1,7 +1,9 @@
 // ===============================
 // GLOBAL VARIABLES
 // ===============================
-
+let playbackIndex = 0;
+let playbackTimer = null;
+let currentLocations = [];
 let map;
 let excelData = [];
 
@@ -333,7 +335,7 @@ locations.sort((a, b) => {
     return d1 - d2;
 
 });
-
+    currentLocations = locations;
     drawMovement(locations);
 
 }

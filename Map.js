@@ -154,6 +154,75 @@ function fillDropdowns(headers) {
     );
 
 }
+function parseLocation(value) {
+
+    if (!value) return null;
+
+    value = String(value).trim();
+
+    // Google Maps URL
+    let match = value.match(/q=([-0-9.]+),\s*([-0-9.]+)/i);
+
+    if (match) {
+        return {
+            lat: parseFloat(match[1]),
+            lng: parseFloat(match[2])
+        };
+    }
+
+    // Latitude Longitude (space/comma)
+    let numbers = value.match(/-?\d+(\.\d+)?/g);
+
+    if (numbers && numbers.length >= 2) {
+
+        return {
+            lat: parseFloat(numbers[0]),
+            lng: parseFloat(numbers[1])
+        };
+
+    }
+
+    return null;
+
+}
+
+document.getElementById("generateMap").addEventListener("click", generateMap);
+
+function generateMap() {
+
+    if (excelData.length === 0) {
+        alert("Please upload an Excel file.");
+        return;
+    }
+
+    const locationCol = document.getElementById("locationColumn").value;
+    const dateCol = document.getElementById("dateColumn").value;
+    const timeCol = document.getElementById("timeColumn").value;
+    const towerCol = document.getElementById("towerColumn").value;
+
+    const locations = [];
+
+    excelData.forEach(row => {
+
+        const location = parseLocation(row[locationCol]);
+
+        if (!location) return;
+
+        locations.push({
+            lat: location.lat,
+            lng: location.lng,
+            date: row[dateCol],
+            time: row[timeCol],
+            tower: row[towerCol]
+        });
+
+    });
+
+    console.log(locations);
+
+}
+
+
 function autoSelectColumn(selectId, keywords) {
 
     const select = document.getElementById(selectId);

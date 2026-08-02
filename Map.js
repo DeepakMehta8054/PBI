@@ -185,6 +185,55 @@ function parseLocation(value) {
     return null;
 
 }
+// ==========================================
+// DATE PARSER
+// ==========================================
+
+function parseDate(value) {
+
+    if (!value) return null;
+
+    if (typeof value === "number") {
+
+        return new Date((value - 25569) * 86400 * 1000);
+
+    }
+
+    let d = new Date(value);
+
+    if (!isNaN(d)) return d;
+
+    return null;
+
+}
+
+// ==========================================
+// DATETIME PARSER
+// ==========================================
+
+function parseDateTime(dateValue, timeValue) {
+
+    let date = parseDate(dateValue);
+
+    if (!date) return null;
+
+    if (timeValue) {
+
+        let str = String(timeValue).trim();
+
+        let t = str.split(":");
+
+        date.setHours(parseInt(t[0]) || 0);
+        date.setMinutes(parseInt(t[1]) || 0);
+        date.setSeconds(parseInt(t[2]) || 0);
+
+    }
+
+    return date;
+
+}
+
+
 
 document.getElementById("generateMap").addEventListener("click", generateMap);
 

@@ -226,8 +226,6 @@ locations.sort((a, b) => {
 
 });
 
-
-    console.log(locations);
     drawMovement(locations);
 
 }
@@ -252,6 +250,48 @@ function autoSelectColumn(selectId, keywords) {
 
         }
 
+    }
+
+}
+
+
+function drawMovement(locations) {
+
+    // Purane markers remove
+    markers.forEach(marker => map.removeLayer(marker));
+    markers = [];
+
+    // Purani line remove
+    if (movementLine) {
+        map.removeLayer(movementLine);
+    }
+
+    let latlngs = [];
+
+    locations.forEach((loc, index) => {
+
+        let marker = L.marker([loc.lat, loc.lng]).addTo(map);
+
+        marker.bindPopup(`
+            <b>Sequence:</b> ${index + 1}<br>
+            <b>Date:</b> ${loc.date}<br>
+            <b>Time:</b> ${loc.time}<br>
+            <b>Tower:</b> ${loc.tower}
+        `);
+
+        markers.push(marker);
+
+        latlngs.push([loc.lat, loc.lng]);
+
+    });
+
+    movementLine = L.polyline(latlngs, {
+        color: "blue",
+        weight: 4
+    }).addTo(map);
+
+    if (latlngs.length > 0) {
+        map.fitBounds(movementLine.getBounds());
     }
 
 }

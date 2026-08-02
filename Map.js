@@ -281,6 +281,7 @@ function passesFilter(recordDateTime, fromDate, toDate, fromTime, toTime) {
 document.getElementById("generateMap").addEventListener("click", generateMap);
 
 function generateMap() {
+    
     const fromDate = document.getElementById("fromDate").value;
 const toDate = document.getElementById("toDate").value;
 const fromTime = document.getElementById("fromTime").value;
@@ -339,7 +340,8 @@ locations.sort((a, b) => {
     
     currentLocations = locations;
     playbackIndex = 0;
-
+document.getElementById("timelineSlider").value = 0;
+showPlaybackPoint(0);
 clearInterval(playbackTimer);
 
 document.getElementById("timelineSlider").value = 0;
@@ -464,6 +466,7 @@ vehicleMarker = L.marker(
     [locations[0].lat, locations[0].lng],
     { icon: carIcon }
 ).addTo(map);
+        console.log("Vehicle Created:", vehicleMarker);
       updateStatistics(locations);
     }
 
@@ -540,6 +543,8 @@ function showPlaybackPoint(index) {
     if (currentLocations.length === 0) return;
 
     let loc = currentLocations[index];
+    console.log("Playback:", index);
+console.log("Vehicle:", vehicleMarker);
  vehicleMarker.setLatLng([loc.lat, loc.lng]);
     map.setView([loc.lat, loc.lng], 16);
 

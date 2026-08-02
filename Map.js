@@ -638,18 +638,13 @@ document.getElementById("pauseBtn").addEventListener("click", function () {
     clearInterval(playbackTimer);
 
 });
+const printer = L.easyPrint({
+    hidden: true,
+    exportOnly: true,
+    filename: "Suspect_Movement_Map",
+    sizeModes: ["Current"]
+}).addTo(map);
+
 document.getElementById("downloadMap").addEventListener("click", function () {
-
-    html2canvas(document.getElementById("map"), {
-        useCORS: true,
-        scale: 2
-    }).then(function (canvas) {
-
-        let link = document.createElement("a");
-        link.download = "Suspect_Movement_Map.png";
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-
-    });
-
+    printer.printMap("CurrentSize", "Suspect_Movement_Map");
 });

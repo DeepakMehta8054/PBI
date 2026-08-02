@@ -457,10 +457,10 @@ if (vehicleMarker) {
 }
 
 const carIcon = L.divIcon({
-    html: "🚗",
+    html: '<div style="font-size:40px;">🚗</div>',
     className: "",
-    iconSize: [30, 30],
-    iconAnchor: [15, 15]
+    iconSize: [50, 50],
+    iconAnchor: [25, 25]
 });
 
 vehicleMarker = L.marker(

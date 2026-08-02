@@ -189,6 +189,7 @@ function parseLocation(value) {
 document.getElementById("generateMap").addEventListener("click", generateMap);
 
 function generateMap() {
+    alert("Generate Map Clicked");
 
     if (excelData.length === 0) {
         alert("Please upload an Excel file.");

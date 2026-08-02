@@ -320,14 +320,44 @@ function drawMovement(locations) {
 
     locations.forEach((loc, index) => {
 
-        let marker = L.marker([loc.lat, loc.lng]).addTo(map);
+        let bgColor = "#1976d2";
 
-        marker.bindPopup(`
-            <b>Sequence:</b> ${index + 1}<br>
-            <b>Date:</b> ${loc.date}<br>
-            <b>Time:</b> ${loc.time}<br>
-            <b>Tower:</b> ${loc.tower}
-        `);
+if (index === 0) bgColor = "#28a745";
+if (index === locations.length - 1) bgColor = "#dc3545";
+
+const icon = L.divIcon({
+    className: "number-marker",
+    html: `
+        <div style="
+            width:32px;
+            height:32px;
+            border-radius:50%;
+            background:${bgColor};
+            color:white;
+            font-weight:bold;
+            text-align:center;
+            line-height:32px;
+            border:2px solid white;
+            box-shadow:0 2px 6px rgba(0,0,0,.35);
+        ">
+            ${index + 1}
+        </div>
+    `,
+    iconSize: [32,32],
+    iconAnchor: [16,16]
+});
+
+let marker = L.marker([loc.lat, loc.lng], {
+    icon: icon
+}).addTo(map);
+marker.bindPopup(`
+<b>Sequence:</b> ${index + 1}<br>
+<b>Date:</b> ${loc.date}<br>
+<b>Time:</b> ${loc.time}<br>
+<b>Tower:</b> ${loc.tower}<br>
+<b>Latitude:</b> ${loc.lat}<br>
+<b>Longitude:</b> ${loc.lng}
+`);
 
         markers.push(marker);
 

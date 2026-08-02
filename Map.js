@@ -638,3 +638,21 @@ document.getElementById("pauseBtn").addEventListener("click", function () {
     clearInterval(playbackTimer);
 
 });
+document.getElementById("downloadMap").addEventListener("click", function () {
+
+    leafletImage(map, function (err, canvas) {
+
+        if (err) {
+            alert("Map export failed.");
+            console.error(err);
+            return;
+        }
+
+        let link = document.createElement("a");
+        link.download = "Suspect_Movement_Map.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+
+    });
+
+});

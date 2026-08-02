@@ -105,3 +105,74 @@ function fillDropdowns(headers) {
     });
 
 }
+function fillDropdowns(headers) {
+
+    const dropdowns = [
+        "locationColumn",
+        "dateColumn",
+        "timeColumn",
+        "towerColumn"
+    ];
+
+    dropdowns.forEach(id => {
+
+        const select = document.getElementById(id);
+        select.innerHTML = "";
+
+        headers.forEach(header => {
+
+            let option = document.createElement("option");
+
+            option.value = header;
+            option.textContent = header;
+
+            select.appendChild(option);
+
+        });
+
+    });
+
+    // Auto Detect Columns
+    autoSelectColumn(
+        "locationColumn",
+        ["location", "latlong", "lat long", "coordinates", "coord", "gps", "maps", "google", "loc"]
+    );
+
+    autoSelectColumn(
+        "dateColumn",
+        ["date", "event date", "call date", "cdr date"]
+    );
+
+    autoSelectColumn(
+        "timeColumn",
+        ["time", "event time", "call time", "cdr time"]
+    );
+
+    autoSelectColumn(
+        "towerColumn",
+        ["tower", "tower id", "cell", "cell id", "cgi", "ecgi", "site"]
+    );
+
+}
+function autoSelectColumn(selectId, keywords) {
+
+    const select = document.getElementById(selectId);
+
+    for (let i = 0; i < select.options.length; i++) {
+
+        let text = select.options[i].text.toLowerCase();
+
+        for (let keyword of keywords) {
+
+            if (text.includes(keyword)) {
+
+                select.selectedIndex = i;
+                return;
+
+            }
+
+        }
+
+    }
+
+}

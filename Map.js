@@ -217,8 +217,18 @@ function generateMap() {
         });
 
     });
+locations.sort((a, b) => {
+
+    let d1 = parseDateTime(a.date, a.time);
+    let d2 = parseDateTime(b.date, b.time);
+
+    return d1 - d2;
+
+});
+
 
     console.log(locations);
+    drawMovement(locations);
 
 }
 

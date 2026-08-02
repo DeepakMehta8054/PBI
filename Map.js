@@ -339,6 +339,7 @@ locations.sort((a, b) => {
 });
     
     currentLocations = locations;
+       drawMovement(locations);
     playbackIndex = 0;
 document.getElementById("timelineSlider").value = 0;
 showPlaybackPoint(0);
@@ -354,7 +355,7 @@ document.getElementById("timelineLabel").textContent =
     locations.length > 0
         ? `1 / ${locations.length}`
         : "0 / 0";
-    drawMovement(locations);
+ 
 
 }
 

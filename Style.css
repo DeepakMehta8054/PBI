@@ -32,7 +32,7 @@ nav a{
     background-color:black;
     font-size:25px;
     padding:8px 12px;
-    
+    display:block;
 }
 nav a:hover{
     background-color:aqua;

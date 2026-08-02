@@ -640,13 +640,10 @@ document.getElementById("pauseBtn").addEventListener("click", function () {
 });
 document.getElementById("downloadMap").addEventListener("click", function () {
 
-    leafletImage(map, function (err, canvas) {
-
-        if (err) {
-            alert("Map export failed.");
-            console.error(err);
-            return;
-        }
+    html2canvas(document.getElementById("map"), {
+        useCORS: true,
+        scale: 2
+    }).then(function (canvas) {
 
         let link = document.createElement("a");
         link.download = "Suspect_Movement_Map.png";

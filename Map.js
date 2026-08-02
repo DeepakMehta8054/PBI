@@ -563,4 +563,4 @@ document.getElementById("pauseBtn").addEventListener("click", function () {
 
     clearInterval(playbackTimer);
 
-
+});

@@ -1,6 +1,7 @@
 // ===============================
 // GLOBAL VARIABLES
 // ===============================
+let vehicleMarker = null;
 let playbackIndex = 0;
 let playbackTimer = null;
 let currentLocations = [];
@@ -447,6 +448,22 @@ marker.bindPopup(`
 
     if (latlngs.length > 0) {
         map.fitBounds(movementLine.getBounds());
+        // Car Marker
+if (vehicleMarker) {
+    map.removeLayer(vehicleMarker);
+}
+
+const carIcon = L.divIcon({
+    html: "🚗",
+    className: "",
+    iconSize: [30, 30],
+    iconAnchor: [15, 15]
+});
+
+vehicleMarker = L.marker(
+    [locations[0].lat, locations[0].lng],
+    { icon: carIcon }
+).addTo(map);
       updateStatistics(locations);
     }
 
@@ -523,7 +540,7 @@ function showPlaybackPoint(index) {
     if (currentLocations.length === 0) return;
 
     let loc = currentLocations[index];
-
+ vehicleMarker.setLatLng([loc.lat, loc.lng]);
     map.setView([loc.lat, loc.lng], 16);
 
  markers.forEach(m => m.closePopup());

@@ -539,6 +539,39 @@ document.getElementById("timelineSlider").addEventListener("input", function () 
     showPlaybackPoint(playbackIndex);
 
 });
+
+function animateVehicle(from, to) {
+
+    let duration = 1000; // 1 second
+    let start = null;
+
+    function animate(timestamp) {
+
+        if (!start) start = timestamp;
+
+        let progress = (timestamp - start) / duration;
+
+        if (progress > 1) progress = 1;
+
+        let lat = from.lat + (to.lat - from.lat) * progress;
+        let lng = from.lng + (to.lng - from.lng) * progress;
+
+        vehicleMarker.setLatLng([lat, lng]);
+
+        if (progress < 1) {
+            requestAnimationFrame(animate);
+        }
+
+    }
+
+    requestAnimationFrame(animate);
+
+}
+
+
+
+
+
 function showPlaybackPoint(index) {
 
     if (currentLocations.length === 0) return;
@@ -546,7 +579,24 @@ function showPlaybackPoint(index) {
     let loc = currentLocations[index];
     console.log("Playback:", index);
 console.log("Vehicle:", vehicleMarker);
- vehicleMarker.setLatLng([loc.lat, loc.lng]);
+ if (index === 0) {
+
+    vehicleMarker.setLatLng([loc.lat, loc.lng]);
+
+} else {
+
+    animateVehicle(
+        {
+            lat: currentLocations[index - 1].lat,
+            lng: currentLocations[index - 1].lng
+        },
+        {
+            lat: loc.lat,
+            lng: loc.lng
+        }
+    );
+
+}
     map.setView([loc.lat, loc.lng], 16);
 
  markers.forEach(m => m.closePopup());

@@ -335,7 +335,17 @@ locations.sort((a, b) => {
     return d1 - d2;
 
 });
+    
     currentLocations = locations;
+    document.getElementById("timelineSlider").max =
+    locations.length - 1;
+
+document.getElementById("timelineSlider").value = 0;
+
+document.getElementById("timelineLabel").textContent =
+    locations.length > 0
+        ? `1 / ${locations.length}`
+        : "0 / 0";
     drawMovement(locations);
 
 }
@@ -494,5 +504,26 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
     return R * c;
+
+}
+document.getElementById("timelineSlider").addEventListener("input", function () {
+
+    playbackIndex = parseInt(this.value);
+
+    showPlaybackPoint(playbackIndex);
+
+});
+function showPlaybackPoint(index) {
+
+    if (currentLocations.length === 0) return;
+
+    let loc = currentLocations[index];
+
+    map.setView([loc.lat, loc.lng], 16);
+
+    markers[index].openPopup();
+
+    document.getElementById("timelineLabel").textContent =
+        `${index + 1} / ${currentLocations.length}`;
 
 }

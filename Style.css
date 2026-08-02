@@ -30,19 +30,15 @@ nav a{
     text-decoration:none;
     color:white;
     background-color:black;
+    margin-left: 75px;
     font-size:25px;
-    padding:8px 12px;
-    display:block;
+    
 }
 nav a:hover{
     background-color:aqua;
 }
 nav{
     margin-top:30px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:40px;
 }
 .fa-house {
     color:rgb(242,213,146);

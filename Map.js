@@ -337,6 +337,11 @@ locations.sort((a, b) => {
 });
     
     currentLocations = locations;
+    playbackIndex = 0;
+
+clearInterval(playbackTimer);
+
+document.getElementById("timelineSlider").value = 0;
     document.getElementById("timelineSlider").max =
     locations.length - 1;
 
@@ -521,9 +526,41 @@ function showPlaybackPoint(index) {
 
     map.setView([loc.lat, loc.lng], 16);
 
-    markers[index].openPopup();
+ markers.forEach(m => m.closePopup());
+
+markers[index].openPopup();
 
     document.getElementById("timelineLabel").textContent =
         `${index + 1} / ${currentLocations.length}`;
 
 }
+
+document.getElementById("playBtn").addEventListener("click", function () {
+
+    if (currentLocations.length === 0) return;
+
+    clearInterval(playbackTimer);
+
+    playbackTimer = setInterval(function () {
+
+        playbackIndex++;
+
+        if (playbackIndex >= currentLocations.length) {
+
+            clearInterval(playbackTimer);
+            return;
+
+        }
+
+        document.getElementById("timelineSlider").value = playbackIndex;
+
+        showPlaybackPoint(playbackIndex);
+
+    }, 1000); // 1 second per point
+
+});
+document.getElementById("pauseBtn").addEventListener("click", function () {
+
+    clearInterval(playbackTimer);
+
+
